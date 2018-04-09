@@ -114,14 +114,7 @@ namespace TheAionProject
                 //
                 // get next game action from player
                 //
-                if (ActionMenu.currentMenu == ActionMenu.CurrentMenu.MainMenu)
-                {
-                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
-                }
-                else if (ActionMenu.currentMenu == ActionMenu.CurrentMenu.AdminMenu)
-                {
-                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
-                }
+                travelerActionChoice = GetNextTravelerAction();
 
 
                 //
@@ -186,6 +179,21 @@ namespace TheAionProject
                         _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
                         break;
 
+                    case TravelerAction.TravelerMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.TravelerMenu;
+                        _gameConsoleView.DisplayGamePlayScreen("Traveler Menu", "Select an operation from the menu", ActionMenu.TravelerMenu, "");
+                        break;
+
+                    case TravelerAction.ObjectMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.ObjectMenu;
+                        _gameConsoleView.DisplayGamePlayScreen("Object Menu", "Select an operation from the menu", ActionMenu.ObjectMenu, "");
+                        break;
+
+                    case TravelerAction.NonplayerCharacterMenu:
+                        _gameConsoleView.DisplayGamePlayScreen("NPC Menu", "Select an operation from the menu", ActionMenu.NpcMenu, "");
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.NpcMenu;
+                        break;
+
                     case TravelerAction.Exit:
                         _playingGame = false;
                         break;
@@ -199,6 +207,42 @@ namespace TheAionProject
             // close the application
             //
             Environment.Exit(1);
+        }
+
+        /// display the correct menu/sub-menu and get the next traveler action
+        /// </summary>
+        /// <returns>traveler action</returns>
+        private TravelerAction GetNextTravelerAction()
+        {
+            TravelerAction travelerActionChoice = TravelerAction.None;
+
+            switch (ActionMenu.currentMenu)
+            {
+                case ActionMenu.CurrentMenu.MainMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
+                    break;
+
+                case ActionMenu.CurrentMenu.ObjectMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.ObjectMenu);
+                    break;
+
+                case ActionMenu.CurrentMenu.NpcMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.NpcMenu);
+                    break;
+
+                case ActionMenu.CurrentMenu.TravelerMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.TravelerMenu);
+                    break;
+
+                case ActionMenu.CurrentMenu.AdminMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
+                    break;
+
+                default:
+                    break;
+            }
+
+            return travelerActionChoice;
         }
 
         /// <summary>

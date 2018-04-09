@@ -16,6 +16,9 @@ namespace TheAionProject
             MissionIntro,
             InitializeMission,
             MainMenu,
+            ObjectMenu,
+            NpcMenu, 
+            TravelerMenu,
             AdminMenu
         }
 
@@ -50,15 +53,12 @@ namespace TheAionProject
             MenuTitle = "Main Menu",
             MenuChoices = new Dictionary<char, TravelerAction>()
                 {
-                    { '1', TravelerAction.TravelerInfo },
-                    { '2', TravelerAction.LookAround },
-                    { '3', TravelerAction.LookAt },
-                    { '4', TravelerAction.PickUp },
-                    { '5', TravelerAction.PutDown },
-                    { '6', TravelerAction.Inventory },
-                    { '7', TravelerAction.Travel },
-                    { '8', TravelerAction.TravelerLocationsVisited },
-                    { '9', TravelerAction.AdminMenu },
+                    { '1', TravelerAction.LookAround },
+                    { '2', TravelerAction.Travel },
+                    { '3', TravelerAction.ObjectMenu },
+                    { '4', TravelerAction.NonplayerCharacterMenu },
+                    { '5', TravelerAction.TravelerMenu },
+                    { '6', TravelerAction.AdminMenu },
                     { '0', TravelerAction.Exit }
                 }
         };
@@ -72,6 +72,43 @@ namespace TheAionProject
                     { '1', TravelerAction.ListSpaceTimeLocations },
                     { '2', TravelerAction.ListGameObjects},
                     { '3', TravelerAction.ListNonPlayerCharacters },
+                    { '0', TravelerAction.ReturnToMainMenu }
+                }
+        };
+
+        public static Menu TravelerMenu = new Menu()
+        {
+            MenuName = "TravelerMenu",
+            MenuTitle = "Traveler Menu",
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.TravelerInfo },
+                    { '2', TravelerAction.Inventory},
+                    { '3', TravelerAction.TravelerLocationsVisited },
+                    { '0', TravelerAction.ReturnToMainMenu }
+                }
+        };
+
+        public static Menu ObjectMenu = new Menu()
+        {
+            MenuName = "ObjectMenu",
+            MenuTitle = "Object Menu",
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.LookAt},
+                    { '2', TravelerAction.PickUp},
+                    { '3', TravelerAction.PutDown },
+                    { '0', TravelerAction.ReturnToMainMenu }
+                }
+        };
+
+        public static Menu NpcMenu = new Menu()
+        {
+            MenuName = "NpcMenu",
+            MenuTitle = "Npc Menu",
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.TalkTo },
                     { '0', TravelerAction.ReturnToMainMenu }
                 }
         };
