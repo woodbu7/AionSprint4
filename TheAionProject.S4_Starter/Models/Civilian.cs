@@ -24,7 +24,7 @@ namespace TheAionProject
             }
             else
             {
-                return $"My name is {base.Name} and I am a {base.Race}";
+                return $"My name is {base.Name} and I am a {base.Race.ToString()}";
             }
         }
 

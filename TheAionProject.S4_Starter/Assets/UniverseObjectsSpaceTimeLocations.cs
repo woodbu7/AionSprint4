@@ -53,7 +53,7 @@ namespace TheAionProject
                               "open market managed by the Xantorian Commerce Coop. It is a place " +
                               "where many races from various systems trade goods.",
                 GeneralContents = "- stuff in the room -",
-                Accessible = false,
+                Accessible = true,
                 ExperiencePoints = 20
             },
 

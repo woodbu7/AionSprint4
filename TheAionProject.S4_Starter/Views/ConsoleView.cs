@@ -855,6 +855,64 @@ namespace TheAionProject
             DisplayGamePlayScreen("List: Npc Object", Text.ListAllNpcObjects(_gameUniverse.Npcs), ActionMenu.AdminMenu, "");
         }
 
+        public int DisplayGetNpcToTalkTo()
+        {
+            int npcId = 0;
+            bool validNpcId = false;
+
+            List<Npc> npcsInSpaceTimeLocation = _gameUniverse.GetNpcBySpaceTimeLocationId(_gameTraveler.SpaceTimeLocationID);
+
+            if (npcsInSpaceTimeLocation.Count > 0)
+            {
+                DisplayGamePlayScreen("Choose Character to Speak With", Text.NpcsChooseList(npcsInSpaceTimeLocation), ActionMenu.NpcMenu, "");
+
+                while (!validNpcId)
+                {
+                    GetInteger($"Enter the id number of the character: ", 0, 0, out npcId);
+
+                    if (_gameUniverse.IsValidNpcByLocationId(npcId, _gameTraveler.SpaceTimeLocationID))
+                    {
+                        Npc npc = _gameUniverse.GetNpcById(npcId);
+                        if (npc is ISpeak)
+                        {
+                            validNpcId = true;
+                        }
+                        else
+                        {
+                            ClearInputBox();
+                            DisplayInputErrorMessage("It appears this character has nothing to say. Please try agian.");
+                        }
+                    }
+                    else
+                    {
+                        ClearInputBox();
+                        DisplayInputErrorMessage("It appears you entered an invalid id. Please try agian.");
+                    }
+                }
+            }
+            else
+            {
+                DisplayGamePlayScreen("Choose Character to Speak With", "It appears here are no NPCs here.", ActionMenu.NpcMenu, "");
+            }
+
+            return npcId;
+        }
+
+        public void DisplayTalkTo(Npc npc)
+        {
+            ISpeak speakingNpc = npc as ISpeak;
+
+            string message = speakingNpc.Speak();
+
+            if (message == "")
+            {
+                message = "It appears this character has nothing to say. Please try agian.";
+            }
+
+            DisplayGamePlayScreen("Spak to Character", message, ActionMenu.NpcMenu, "");
+            
+        }
+
         #endregion
 
         #endregion

@@ -153,6 +153,10 @@ namespace TheAionProject
                         PutDownAction();
                         break;
 
+                    case TravelerAction.TalkTo:
+                        TalkToAction();
+                        break;
+
                     case TravelerAction.Inventory:
                         _gameConsoleView.DisplayInventory();
                         break;
@@ -384,6 +388,18 @@ namespace TheAionProject
                 // update experience points for visiting locations
                 //
                 _gameTraveler.ExperiencePoints += _currentLocation.ExperiencePoints;
+            }
+        }
+
+        private void TalkToAction()
+        {
+            int npcToTalkToId = _gameConsoleView.DisplayGetNpcToTalkTo();
+
+            if (npcToTalkToId != 0)
+            {
+                Npc npc = _gameUniverse.GetNpcById(npcToTalkToId);
+
+                _gameConsoleView.DisplayTalkTo(npc);
             }
         }
 
