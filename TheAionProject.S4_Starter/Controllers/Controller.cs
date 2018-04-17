@@ -398,6 +398,12 @@ namespace TheAionProject
             if (npcToTalkToId != 0)
             {
                 Npc npc = _gameUniverse.GetNpcById(npcToTalkToId);
+                if (npc is Civilian)
+                {
+                    Civilian civilian = npc as Civilian;
+                    _gameTraveler.ExperiencePoints += civilian.ExperiencePoints;
+                    _gameTraveler.Health += civilian.HealthPoints;
+                }
 
                 _gameConsoleView.DisplayTalkTo(npc);
             }

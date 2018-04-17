@@ -11,6 +11,9 @@ namespace TheAionProject
         public override int Id { get; set; }
         public override string Description { get; set; }
         public List<string> Messages { get; set; }
+        public int ExperiencePoints { get; set; }
+        public int HealthPoints { get; set; }
+        public bool HasKey { get; set; }
 
         /// <summary>
         /// generate a message or use default

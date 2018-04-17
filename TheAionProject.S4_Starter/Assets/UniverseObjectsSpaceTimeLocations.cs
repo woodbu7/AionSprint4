@@ -27,6 +27,7 @@ namespace TheAionProject
                     "hydra-like Norlan Corporation logo. \n",
                 Accessible = true,
                 ExperiencePoints = 10
+                
             },
 
             new SpaceTimeLocation
