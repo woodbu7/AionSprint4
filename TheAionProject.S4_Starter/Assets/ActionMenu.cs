@@ -19,7 +19,8 @@ namespace TheAionProject
             ObjectMenu,
             NpcMenu, 
             TravelerMenu,
-            AdminMenu
+            AdminMenu, 
+            AttackMenu
         }
 
         //
@@ -110,6 +111,17 @@ namespace TheAionProject
                 {
                     { '1', TravelerAction.TalkTo },
                     { '0', TravelerAction.ReturnToMainMenu }
+                }
+        };
+
+        public static Menu AttackMenu = new Menu()
+        {
+            MenuName = "AttackMenu",
+            MenuTitle = "Npc Menu",
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.Fight },
+                    { '0', TravelerAction.EscapeToMainMenu }
                 }
         };
 

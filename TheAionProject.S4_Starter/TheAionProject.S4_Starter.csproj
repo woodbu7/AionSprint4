@@ -55,9 +55,11 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Civilian.cs" />
+    <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Enums\TravelerAction.cs" />
     <Compile Include="Models\Enums\TravelerObjectType.cs" />
     <Compile Include="Models\GameObject.cs" />
+    <Compile Include="Models\IBattle.cs" />
     <Compile Include="Models\ISpeak.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Npc.cs" />

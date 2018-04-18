@@ -12,6 +12,8 @@ namespace TheAionProject
     public enum TravelerAction
     {
         None,
+        Fight,
+        EscapeToMainMenu,
         MissionSetup,
         LookAround,
         Travel,

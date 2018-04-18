@@ -909,7 +909,31 @@ namespace TheAionProject
                 message = "It appears this character has nothing to say. Please try agian.";
             }
 
-            DisplayGamePlayScreen("Spak to Character", message, ActionMenu.NpcMenu, "");
+            DisplayGamePlayScreen("Speak to Character", message, ActionMenu.NpcMenu, "");
+            
+        }
+
+        public void DisplayTalkToEnemy(Enemy enemy)
+        {
+            ISpeak speakingEnemy = enemy as ISpeak;
+            string message = speakingEnemy.Speak();
+
+            IBattle battlingEnemy = enemy as IBattle;
+            string attackMessage = battlingEnemy.AttackMessage;
+
+            DisplayGamePlayScreen("Speak to Character", message + "\n " + attackMessage, ActionMenu.AttackMenu, "");
+        }
+
+        public void DisplayAttack(Enemy enemy, bool defeated)
+        {
+            if (!defeated)
+            {
+                DisplayGamePlayScreen("Battle", $"You won the battle against {enemy.Name} and have gained {enemy.ExperiencePoints} experience points.", ActionMenu.MainMenu, "");
+            }
+            else
+            {
+                DisplayGamePlayScreen("Battle", $"You were defeated in the battle against {enemy.Name} and have lost a life.", ActionMenu.MainMenu, "");
+            }
             
         }
 

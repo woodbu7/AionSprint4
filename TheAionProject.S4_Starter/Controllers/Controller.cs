@@ -70,6 +70,7 @@ namespace TheAionProject
         private void ManageGameLoop()
         {
             TravelerAction travelerActionChoice = TravelerAction.None;
+            int npcId = 0;
 
             //
             // display splash screen
@@ -154,7 +155,7 @@ namespace TheAionProject
                         break;
 
                     case TravelerAction.TalkTo:
-                        TalkToAction();
+                        npcId = TalkToAction();
                         break;
 
                     case TravelerAction.Inventory:
@@ -196,6 +197,15 @@ namespace TheAionProject
                     case TravelerAction.NonplayerCharacterMenu:
                         _gameConsoleView.DisplayGamePlayScreen("NPC Menu", "Select an operation from the menu", ActionMenu.NpcMenu, "");
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.NpcMenu;
+                        break;
+
+                    case TravelerAction.Fight:
+                        AttackAction(npcId);
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+                            break;
+                    case TravelerAction.EscapeToMainMenu:
+                        ctionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+                        _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
                         break;
 
                     case TravelerAction.Exit:
@@ -240,6 +250,10 @@ namespace TheAionProject
 
                 case ActionMenu.CurrentMenu.AdminMenu:
                     travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
+                    break;
+
+                case ActionMenu.CurrentMenu.AttackMenu:
+                    travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AttackMenu);
                     break;
 
                 default:
@@ -391,8 +405,9 @@ namespace TheAionProject
             }
         }
 
-        private void TalkToAction()
+        private int TalkToAction()
         {
+            int enemyId = 0;
             int npcToTalkToId = _gameConsoleView.DisplayGetNpcToTalkTo();
 
             if (npcToTalkToId != 0)
@@ -403,10 +418,56 @@ namespace TheAionProject
                     Civilian civilian = npc as Civilian;
                     _gameTraveler.ExperiencePoints += civilian.ExperiencePoints;
                     _gameTraveler.Health += civilian.HealthPoints;
+
+                    if (civilian.HasKey)
+                    {
+                        foreach (SpaceTimeLocation location in _gameUniverse.SpaceTimeLocations)
+                        {
+                            if (!location.Accessible)
+                            {
+                                location.Accessible = true;
+                            }
+                        }
+                    }
+
+                    _gameConsoleView.DisplayTalkTo(npc);
+                }
+                else if (npc is Enemy)
+                {
+                    Enemy enemy = npc as Enemy;
+                    ActionMenu.currentMenu = ActionMenu.CurrentMenu.AttackMenu;
+                    _gameConsoleView.DisplayTalkToEnemy(enemy);
+                    enemyId = enemy.Id;
                 }
 
-                _gameConsoleView.DisplayTalkTo(npc);
+                
             }
+
+            return enemyId;
+        }
+
+        private void AttackAction(int enemyId)
+        {
+            bool defeated;
+
+            Npc npc = _gameUniverse.GetNpcById(enemyId);
+            if (npc is Enemy)
+            {
+                Enemy enemy = npc as Enemy;
+                if (enemy.PointsNeededToDefeat >= _gameTraveler.ExperiencePoints)
+                {
+                    defeated = true;
+                    _gameTraveler.Lives -= 1;
+                }
+                else
+                {
+                    defeated = false;
+                    _gameTraveler.ExperiencePoints += enemy.ExperiencePoints;
+                }
+
+                _gameConsoleView.DisplayAttack(enemy, defeated);
+            }
+
         }
 
         #endregion

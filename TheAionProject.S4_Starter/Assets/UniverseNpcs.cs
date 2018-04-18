@@ -96,13 +96,13 @@ namespace TheAionProject
                 Description = "An old man with shaggy clothes. Looks like a beggar.",
                 Messages = new List<string>()
                 {
-                    "I have seen things. I know things.",
-                    "They will come for you. There is only a matter of time.",
-                    "Today is tomorrow yesterday."
+                    "I have seen things. I know things. You will too now.",
+                    "They will come for you. There is only a matter of time. Go where you haven't gone before.",
+                    "Today is tomorrow yesterday. You must be cautious."
                 },
                 ExperiencePoints = 5,
                 HealthPoints = 0,
-                HasKey = false
+                HasKey = true
             },
 
             new Civilian
@@ -136,7 +136,37 @@ namespace TheAionProject
                 ExperiencePoints = 5,
                 HealthPoints = 0,
                 HasKey = false
+            },
+
+            new Enemy
+            {
+                Id = 9,
+                Name = "Victus Morphus",
+                SpaceTimeLocationID = 3,
+                Description = "A fierce warrior, lives to kill.",
+                Messages = new List<string>()
+                {
+                    "What are you looking at? Don't you know who I am?!",
+                    "You really shouldn't have talked to me."
+                },
+                AttackMessage = "Preapare to die! I will finish you!",
+                ExperiencePoints = 25,
+                HealthPoints = 0,
+                PointsNeededToDefeat = 75
+            },
+
+            new Enemy
+            {
+                Id = 10,
+                Name = "Dark Alien",
+                SpaceTimeLocationID = 2,
+                Description = "The dark alien is a sworn enemy of your kind. They will fight to kill.",
+                AttackMessage = "Hissssssssss!!! I will kill you!",
+                ExperiencePoints = 15,
+                HealthPoints = 0,
+                PointsNeededToDefeat = 30
             }
+
 
         };
         
